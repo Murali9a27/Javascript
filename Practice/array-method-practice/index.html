@@ -1,0 +1,56 @@
+## Student Management System
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+</head>
+<body>
+    <h1>Student Management System</h1>
+    <h2>Student List</h2>
+    <ul id="student-list"></ul>
+    <h2>Add New Student</h2>
+    
+    <form id="add-student-form">
+        <input type="text" id="student-name" placeholder="Name" required>
+        <input type="number" id="student-age" placeholder="Age" required>
+        <button type="submit">Add Student</button>
+    </form>
+
+    <script>
+        const students = [
+            { name: 'Alice', age: 20 },
+            { name: 'Bob', age: 22 },
+            { name: 'Charlie', age: 19 }
+        ];
+
+        const studentList = document.getElementById('student-list');
+        const addStudentForm = document.getElementById('add-student-form');
+        const studentNameInput = document.getElementById('student-name');
+        const studentAgeInput = document.getElementById('student-age');
+
+        function renderStudentList() {
+            studentList.innerHTML = '';
+            students.forEach(student => {
+                const li = document.createElement('li');
+                li.textContent = `${student.name} (Age: ${student.age})`;
+                studentList.appendChild(li);
+            });
+        }
+
+        addStudentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = studentNameInput.value.trim();
+            const age = parseInt(studentAgeInput.value.trim(), 10);
+            if (name && !isNaN(age)) {
+                students.push({ name, age });
+                renderStudentList();
+                addStudentForm.reset();
+            }
+        });
+
+        renderStudentList();    
+    </script>
+</body>
+</html>
